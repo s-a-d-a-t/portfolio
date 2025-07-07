@@ -267,140 +267,80 @@
             left: 100%;
         }
 
-        /* CSS Anime Character */
-        .anime-character {
+        /* New Cubic Design */
+        .cubic-character {
             width: 200px;
-            height: 250px;
+            height: 200px;
             margin: 2rem auto;
             position: relative;
-            z-index: 1;
+            perspective: 1000px;
             transform: translateY(30px);
             opacity: 0;
             animation: fadeUp 1s 1s forwards;
         }
 
-        .character-head {
-            width: 120px;
-            height: 120px;
-            background: #f5d7b4;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .character-hair {
-            width: 140px;
-            height: 80px;
-            background: #333;
-            border-radius: 50% 50% 0 0;
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .character-eyes {
-            position: absolute;
-            top: 50px;
+        .cube {
             width: 100%;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .eye {
-            width: 25px;
-            height: 35px;
-            background: white;
-            border-radius: 50%;
+            height: 100%;
             position: relative;
-            overflow: hidden;
-            animation: blink 4s infinite;
+            transform-style: preserve-3d;
+            transform: rotateX(-20deg) rotateY(-20deg);
+            animation: rotateCube 15s infinite linear;
         }
 
-        .eye::after {
+        .face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            background: rgba(20, 20, 30, 0.7);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px rgba(130, 170, 255, 0.2) inset;
+        }
+
+        .face::after {
             content: '';
             position: absolute;
-            width: 15px;
-            height: 15px;
-            background: #222;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.7;
+        }
+
+        .front  { transform: rotateY(0deg) translateZ(100px); }
+        .back   { transform: rotateY(180deg) translateZ(100px); }
+        .right  { transform: rotateY(90deg) translateZ(100px); }
+        .left   { transform: rotateY(-90deg) translateZ(100px); }
+        .top    { transform: rotateX(90deg) translateZ(100px); }
+        .bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+        .front i { color: var(--primary); animation: pulse 2s infinite; }
+        .back i { color: var(--secondary); animation: pulse 2s infinite 0.3s; }
+        .right i { color: var(--accent); animation: pulse 2s infinite 0.6s; }
+        .left i { color: var(--purple); animation: pulse 2s infinite 0.9s; }
+        .top i { color: var(--blue); animation: pulse 2s infinite 1.2s; }
+        .bottom i { color: var(--green); animation: pulse 2s infinite 1.5s; }
+
+        /* Hologram effect */
+        .hologram {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(130, 170, 255, 0.1), transparent 70%);
             border-radius: 50%;
-            top: 10px;
-            left: 5px;
-            animation: look 8s infinite;
-        }
-
-        .character-mouth {
-            width: 40px;
-            height: 15px;
-            background: #e75480;
-            border-radius: 0 0 20px 20px;
-            position: absolute;
-            top: 85px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: talk 3s infinite;
-        }
-
-        .character-body {
-            width: 100px;
-            height: 100px;
-            background: var(--primary);
-            position: absolute;
-            top: 110px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .character-arm {
-            position: absolute;
-            width: 25px;
-            height: 70px;
-            background: var(--primary);
-            top: 110px;
-            animation: wave 4s infinite;
-        }
-
-        .arm-left {
-            left: 25px;
-            border-radius: 10px 0 0 10px;
-            animation-delay: 0.5s;
-        }
-
-        .arm-right {
-            right: 25px;
-            border-radius: 0 10px 10px 0;
-        }
-
-        .character-laptop {
-            position: absolute;
-            width: 80px;
-            height: 50px;
-            background: #333;
-            top: 160px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: glow 2s infinite alternate;
-        }
-
-        .laptop-screen {
-            width: 70px;
-            height: 40px;
-            background: #82aaff;
-            border-radius: 3px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #333;
-            font-size: 1.5rem;
+            filter: blur(20px);
+            opacity: 0.5;
+            z-index: -1;
+            animation: hologramPulse 4s infinite alternate;
         }
 
         /* Sections */
@@ -824,6 +764,23 @@
             .hero p {
                 font-size: 1.1rem;
             }
+            
+            .cubic-character {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .face {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .front  { transform: rotateY(0deg) translateZ(75px); }
+            .back   { transform: rotateY(180deg) translateZ(75px); }
+            .right  { transform: rotateY(90deg) translateZ(75px); }
+            .left   { transform: rotateY(-90deg) translateZ(75px); }
+            .top    { transform: rotateX(90deg) translateZ(75px); }
+            .bottom { transform: rotateX(-90deg) translateZ(75px); }
         }
         
         /* Scroll to top button */
@@ -858,7 +815,27 @@
             transform: scale(1.1);
         }
 
-        /* Animations */
+        /* New Animations */
+        @keyframes rotateCube {
+            0% { transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg); }
+            25% { transform: rotateX(-20deg) rotateY(90deg) rotateZ(10deg); }
+            50% { transform: rotateX(-20deg) rotateY(180deg) rotateZ(0deg); }
+            75% { transform: rotateX(-20deg) rotateY(270deg) rotateZ(-10deg); }
+            100% { transform: rotateX(-20deg) rotateY(360deg) rotateZ(0deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; text-shadow: 0 0 10px currentColor; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        @keyframes hologramPulse {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.3; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.6; }
+        }
+
+        /* Existing Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
@@ -944,21 +921,15 @@
     
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="anime-character floating">
-            <div class="character-hair"></div>
-            <div class="character-head"></div>
-            <div class="character-eyes">
-                <div class="eye"></div>
-                <div class="eye"></div>
-            </div>
-            <div class="character-mouth"></div>
-            <div class="character-body"></div>
-            <div class="character-arm arm-left"></div>
-            <div class="character-arm arm-right"></div>
-            <div class="character-laptop">
-                <div class="laptop-screen">
-                    <i class="fas fa-code"></i>
-                </div>
+        <div class="cubic-character">
+            <div class="hologram"></div>
+            <div class="cube">
+                <div class="face front"><i class="fas fa-code"></i></div>
+                <div class="face back"><i class="fas fa-cube"></i></div>
+                <div class="face right"><i class="fas fa-laptop-code"></i></div>
+                <div class="face left"><i class="fas fa-terminal"></i></div>
+                <div class="face top"><i class="fas fa-microchip"></i></div>
+                <div class="face bottom"><i class="fas fa-server"></i></div>
             </div>
         </div>
         <div class="hero-content">
