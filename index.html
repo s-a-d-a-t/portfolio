@@ -588,6 +588,7 @@
             gap: 1.5rem;
         }
 
+        /* Applying .contact-card styles directly to <a> or <div> */
         .contact-card {
             display: flex;
             align-items: center;
@@ -603,6 +604,8 @@
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(5px);
+            text-decoration: none; /* Ensure links don't have underline */
+            color: var(--light); /* Ensure link text color matches */
         }
 
         .contact-card::before {
@@ -781,6 +784,10 @@
             .left   { transform: rotateY(-90deg) translateZ(75px); }
             .top    { transform: rotateX(90deg) translateZ(75px); }
             .bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+            .contact-form {
+                padding: 1.5rem; /* Adjust padding for smaller screens */
+            }
         }
         
         /* Scroll to top button */
@@ -813,6 +820,71 @@
         .scroll-top:hover {
             background: var(--secondary);
             transform: scale(1.1);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1001; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(20, 20, 30, 0.9);
+            margin: auto;
+            padding: 30px;
+            border: 1px solid var(--primary);
+            width: 80%;
+            max-width: 500px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 77, 148, 0.5);
+            position: relative;
+            transform: translateY(-50px);
+            opacity: 0;
+            animation: modalFadeIn 0.3s forwards;
+        }
+
+        .modal-content h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .modal-content p {
+            color: var(--light);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .modal-close-btn {
+            background: linear-gradient(45deg, var(--primary), var(--purple));
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(255, 77, 148, 0.4);
+        }
+
+        .modal-close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 77, 148, 0.6);
+        }
+
+        @keyframes modalFadeIn {
+            to { transform: translateY(0); opacity: 1; }
         }
 
         /* New Animations */
@@ -907,6 +979,15 @@
     <!-- Scroll to top button -->
     <div class="scroll-top">
         <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <h3>Message Sent!</h3>
+            <p>Thank you for your message. I'll get back to you soon!</p>
+            <button class="modal-close-btn">Close</button>
+        </div>
     </div>
     
     <!-- Header -->
@@ -1036,22 +1117,25 @@
         <h2 class="section-title">Get In Touch</h2>
         <div class="contact-container">
             <div class="contact-info">
-                <div class="contact-card">
+                <!-- Email Contact Card -->
+                <a href="mailto:sdrkk66@gmail.com" class="contact-card" target="_blank">
                     <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                     <div>
                         <h3>Email</h3>
                         <p>sdrkk66@gmail.com</p>
                     </div>
-                </div>
+                </a>
                 
-                <div class="contact-card">
+                <!-- GitHub Contact Card -->
+                <a href="https://github.com/s-a-d-a-t" class="contact-card" target="_blank">
                     <div class="contact-icon"><i class="fab fa-github"></i></div>
                     <div>
                         <h3>GitHub</h3>
                         <p>github.com/s-a-d-a-t</p>
                     </div>
-                </div>
+                </a>
                 
+                <!-- Location Contact Card -->
                 <div class="contact-card">
                     <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <div>
@@ -1060,6 +1144,7 @@
                     </div>
                 </div>
                 
+                <!-- Education Contact Card -->
                 <div class="contact-card">
                     <div class="contact-icon"><i class="fas fa-graduation-cap"></i></div>
                     <div>
@@ -1069,24 +1154,24 @@
                 </div>
             </div>
             
-            <div class="contact-form">
+            <form class="contact-form">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" placeholder="Your name">
+                    <input type="text" id="name" placeholder="Your name" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Your email">
+                    <input type="email" id="email" placeholder="Your email" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea id="message" rows="5" placeholder="Your message"></textarea>
+                    <textarea id="message" rows="5" placeholder="Your message" required></textarea>
                 </div>
                 
-                <button class="btn">Send Message</button>
-            </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
         </div>
     </section>
     
@@ -1166,6 +1251,30 @@
         window.addEventListener('scroll', animateOnScroll);
         window.addEventListener('load', animateOnScroll);
         
+        // Modal elements
+        const successModal = document.getElementById('successModal');
+        const modalCloseBtn = document.querySelector('.modal-close-btn');
+
+        // Function to show modal
+        const showModal = () => {
+            successModal.style.display = 'flex';
+        };
+
+        // Function to hide modal
+        const hideModal = () => {
+            successModal.style.display = 'none';
+        };
+
+        // Close modal when close button is clicked
+        modalCloseBtn.addEventListener('click', hideModal);
+
+        // Close modal when clicking outside the modal content
+        window.addEventListener('click', (event) => {
+            if (event.target == successModal) {
+                hideModal();
+            }
+        });
+
         // Form submission
         const contactForm = document.querySelector('.contact-form');
         contactForm.addEventListener('submit', function(e) {
@@ -1177,8 +1286,8 @@
             // In a real implementation, you would send this data to a server
             console.log('Form submitted:', { name, email, message });
             
-            // Show a success message
-            alert('Message sent successfully! I\'ll get back to you soon.');
+            // Show success message using the custom modal
+            showModal();
             contactForm.reset();
         });
         
