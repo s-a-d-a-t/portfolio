@@ -405,42 +405,33 @@
             animation: fadeInRight 0.8s forwards;
         }
 
+        /* Terminal Styles */
         .terminal {
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            padding: 2rem;
+            background-color: var(--darker); /* Darker background for terminal */
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); /* Cyan glow */
             width: 100%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
+            max-width: 500px;
+            border: 1px solid var(--secondary); /* Cyan border */
             overflow: hidden;
-        }
-
-        .terminal::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, 
-                rgba(255, 77, 148, 0.1), 
-                rgba(130, 170, 255, 0.1), 
-                rgba(199, 146, 234, 0.1));
-            z-index: -1;
-            animation: gradientShift 8s infinite alternate;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem; /* Adjusted for retro feel */
+            color: var(--green); /* Green text for command line */
+            animation: glow 1.5s infinite alternate; /* Gentle glow animation */
         }
 
         .terminal-header {
             display: flex;
             align-items: center;
-            margin-bottom: 1.5rem;
+            padding: 0.5rem 1rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--secondary);
         }
 
         .terminal-dots {
             display: flex;
-            gap: 8px;
-            margin-right: 10px;
+            gap: 6px;
+            margin-right: 1rem;
         }
 
         .terminal-dot {
@@ -449,46 +440,43 @@
             border-radius: 50%;
         }
 
-        .dot-red { background: #ff5f56; }
-        .dot-yellow { background: #ffbd2e; }
-        .dot-green { background: #27c93f; }
+        .dot-red { background-color: #ff5f56; }
+        .dot-yellow { background-color: #ffbd2e; }
+        .dot-green { background-color: #27c93f; }
 
         .terminal-title {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--light);
             font-size: 0.9rem;
         }
 
         .terminal-content {
-            font-family: 'Courier New', monospace;
-            color: var(--green);
-            line-height: 1.8;
+            padding: 1rem;
+            min-height: 150px; /* Ensure sufficient height */
+            white-space: pre-wrap; /* Preserve whitespace and allow wrapping */
         }
 
         .terminal-line {
             display: block;
-            margin-bottom: 0.8rem;
-            opacity: 0;
-            animation: fadeIn 0.5s forwards;
+            margin-bottom: 0.5rem;
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        .terminal-line.command {
+            color: var(--blue); /* Blue for commands */
         }
 
-        .terminal-line:nth-child(1) { animation-delay: 0.5s; }
-        .terminal-line:nth-child(2) { animation-delay: 1s; }
-        .terminal-line:nth-child(3) { animation-delay: 1.5s; }
-        .terminal-line:nth-child(4) { animation-delay: 2s; }
-        .terminal-line:nth-child(5) { animation-delay: 2.5s; }
+        .terminal-line.output {
+            color: var(--green); /* Green for output */
+        }
 
         .cursor {
             display: inline-block;
+            background-color: var(--primary);
             width: 8px;
-            height: 1.2rem;
-            background: var(--green);
-            margin-left: 2px;
-            animation: blink 1s infinite;
+            height: 15px;
+            vertical-align: middle;
+            animation: blink 0.7s infinite step-end;
         }
+
 
         /* Skills Section */
         .skills-container {
@@ -914,8 +902,8 @@
         }
 
         @keyframes blink {
-            0%, 45%, 55%, 100% { height: 35px; }
-            50% { height: 5px; }
+            0%, 45%, 55%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         @keyframes talk {
@@ -931,8 +919,8 @@
         }
 
         @keyframes glow {
-            0% { box-shadow: 0 0 5px rgba(130, 170, 255, 0.5); }
-            100% { box-shadow: 0 0 20px rgba(130, 170, 255, 0.8); }
+            0% { box-shadow: 0 0 5px rgba(0, 255, 255, 0.3); }
+            100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.8); }
         }
 
         @keyframes wave {
@@ -964,7 +952,6 @@
     </style>
 </head>
 <body>
-    <!-- Dynamic Background -->
     <div class="dynamic-bg">
         <div class="bg-grid"></div>
         <div class="bg-circle circle-1"></div>
@@ -973,15 +960,12 @@
         <div class="bg-circle circle-4"></div>
     </div>
     
-    <!-- Particles Background -->
     <div id="particles-js"></div>
     
-    <!-- Scroll to top button -->
     <div class="scroll-top">
         <i class="fas fa-arrow-up"></i>
     </div>
 
-    <!-- Success Modal -->
     <div id="successModal" class="modal">
         <div class="modal-content">
             <h3>Message Sent!</h3>
@@ -990,7 +974,6 @@
         </div>
     </div>
     
-    <!-- Header -->
     <header>
         <div class="logo">SADAT</div>
         <nav class="nav-links">
@@ -1000,7 +983,6 @@
         </nav>
     </header>
     
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="cubic-character">
             <div class="hologram"></div>
@@ -1021,7 +1003,6 @@
         </div>
     </section>
     
-    <!-- About Section -->
     <section id="about">
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
@@ -1040,19 +1021,14 @@
                         </div>
                         <div class="terminal-title">user@sadat-portfolio: ~</div>
                     </div>
-                    <div class="terminal-content">
-                        <span class="terminal-line">$ whoami</span>
-                        <span class="terminal-line">> 3rd Year CS Student</span>
-                        <span class="terminal-line">$ skills --languages</span>
-                        <span class="terminal-line">> Python, Java, JavaScript, HTML/CSS, C++</span>
-                        <span class="terminal-line">$ contact --email<span class="cursor"></span></span>
+                    <div class="terminal-content" id="terminal-output">
+                        <span class="cursor"></span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Skills Section -->
     <section id="skills">
         <h2 class="section-title">My Skills</h2>
         <div class="skills-container">
@@ -1112,12 +1088,10 @@
         </div>
     </section>
     
-    <!-- Contact Section -->
     <section id="contact">
         <h2 class="section-title">Get In Touch</h2>
         <div class="contact-container">
             <div class="contact-info">
-                <!-- Email Contact Card -->
                 <a href="mailto:sdrkk66@gmail.com" class="contact-card" target="_blank">
                     <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                     <div>
@@ -1126,7 +1100,6 @@
                     </div>
                 </a>
                 
-                <!-- GitHub Contact Card -->
                 <a href="https://github.com/s-a-d-a-t" class="contact-card" target="_blank">
                     <div class="contact-icon"><i class="fab fa-github"></i></div>
                     <div>
@@ -1135,7 +1108,6 @@
                     </div>
                 </a>
                 
-                <!-- Location Contact Card -->
                 <div class="contact-card">
                     <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <div>
@@ -1144,7 +1116,6 @@
                     </div>
                 </div>
                 
-                <!-- Education Contact Card -->
                 <div class="contact-card">
                     <div class="contact-icon"><i class="fas fa-graduation-cap"></i></div>
                     <div>
@@ -1175,7 +1146,6 @@
         </div>
     </section>
     
-    <!-- Footer -->
     <footer>
         <div class="logo">SADAT</div>
         <p>Computer Science Student & Developer</p>
@@ -1186,7 +1156,6 @@
         <p>&copy; 2025 SADAT. All rights reserved.</p>
     </footer>
     
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         // Initialize Particles.js
@@ -1246,6 +1215,14 @@
                     el.style.animationPlayState = 'running';
                 }
             });
+
+            // Trigger terminal typing when About section is in view
+            const aboutSection = document.getElementById('about');
+            const aboutSectionTop = aboutSection.getBoundingClientRect().top;
+            if (aboutSectionTop < windowHeight * 0.85 && !terminalTyped) {
+                typeTerminalContent();
+                terminalTyped = true; // Set flag to true to prevent re-typing
+            }
         };
         
         window.addEventListener('scroll', animateOnScroll);
@@ -1309,11 +1286,68 @@
             });
         });
         
-        // Terminal cursor animation
+        // Terminal typing animation
+        const terminalOutput = document.getElementById('terminal-output');
+        const cursor = terminalOutput.querySelector('.cursor');
+        let terminalTyped = false; // Flag to ensure it only types once
+
+        const terminalLines = [
+            { text: "$ whoami", class: "command" },
+            { text: "> Sadat, a passionate Computer Science Student", class: "output" },
+            { text: "$ interests", class: "command" },
+            { text: "> Software Development, Web Technologies, Problem Solving", class: "output" },
+            { text: "$ current_status", class: "command" },
+            { text: "> Exploring new ideas, building cool stuff", class: "output" },
+            { text: "$ connect --socials", class: "command" },
+            { text: "> See links below!", class: "output" }
+        ];
+
+        let lineIndex = 0;
+        let charIndex = 0;
+
+        function typeTerminalContent() {
+            if (lineIndex < terminalLines.length) {
+                const currentLine = terminalLines[lineIndex];
+                if (charIndex === 0) {
+                    // Create a new span for the line
+                    const newLineSpan = document.createElement('span');
+                    newLineSpan.classList.add('terminal-line');
+                    newLineSpan.classList.add(currentLine.class);
+                    terminalOutput.insertBefore(newLineSpan, cursor);
+                }
+
+                const currentLineSpan = terminalOutput.children[lineIndex];
+                if (charIndex < currentLine.text.length) {
+                    currentLineSpan.textContent += currentLine.text.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeTerminalContent, 50); // Typing speed
+                } else {
+                    lineIndex++;
+                    charIndex = 0;
+                    if (lineIndex < terminalLines.length) {
+                        setTimeout(typeTerminalContent, 700); // Delay before next line
+                    }
+                }
+            }
+        }
+
+        // Initialize terminal content on load if it's in view, otherwise on scroll
+        window.addEventListener('load', () => {
+            const aboutSection = document.getElementById('about');
+            const aboutSectionTop = aboutSection.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+
+            if (aboutSectionTop < windowHeight * 0.85 && !terminalTyped) {
+                typeTerminalContent();
+                terminalTyped = true;
+            }
+        });
+
+        // Blinking cursor
         setInterval(() => {
-            const cursor = document.querySelector('.cursor');
             cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
         }, 500);
+
     </script>
 </body>
 </html>
