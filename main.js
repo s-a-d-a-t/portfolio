@@ -234,3 +234,63 @@ document.querySelectorAll('.ach-card').forEach((c, i) => {
 document.querySelectorAll('.timeline-entry').forEach((c, i) => {
   c.style.transitionDelay = (i * 0.12) + 's';
 });
+
+/* ---------- 3D STEVE VIEWER ---------- */
+(function () {
+  const canvas = document.getElementById('steve-viewer');
+  if (!canvas) return;
+
+  try {
+    const viewer = new skinview3d.SkinViewer({
+      canvas: canvas,
+      width: 300,
+      height: 400,
+      skin: "https://minotar.net/skin/Steve"
+    });
+
+    // Add idle animation for gentle swaying
+    viewer.animations.add(skinview3d.IdleAnimation);
+
+    // Set camera angle for better viewing
+    viewer.camera.position.set(20, 15, 40);
+    viewer.camera.lookAt(0, 0, 0);
+
+    // Debug: log available objects
+    setTimeout(() => {
+      console.log('Viewer object:', viewer);
+      console.log('Player object:', viewer.playerObject);
+      console.log('Scene:', viewer.scene);
+    }, 1000);
+
+    // Track mouse position to make Steve rotate and face the cursor direction
+    document.addEventListener('mousemove', (e) => {
+      // Get window dimensions
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      // Calculate angle based on mouse position relative to center
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+
+      // Calculate rotation angles
+      const yaw = Math.atan2(deltaX, 300) * 0.8; // Horizontal rotation
+      const pitch = Math.atan2(-deltaY, 300) * 0.3; // Vertical rotation
+
+      // Apply rotation to player object
+      if (viewer.playerObject) {
+        viewer.playerObject.rotation.y = yaw;
+        viewer.playerObject.rotation.x = pitch;
+      }
+    });
+
+    // Reset rotation when mouse leaves
+    document.addEventListener('mouseleave', () => {
+      if (viewer.playerObject) {
+        viewer.playerObject.rotation.x = 0;
+        viewer.playerObject.rotation.y = 0;
+      }
+    });
+  } catch (err) {
+    console.log('Steve viewer failed to load:', err);
+  }
+})();

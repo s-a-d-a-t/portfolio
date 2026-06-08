@@ -137,12 +137,12 @@ section{
 .hero-content{position:relative;z-index:2;max-width:800px}
 .hero-avatar-wrap{margin-bottom:30px}
 
-/* Minecraft-style SVG avatar */
-.mc-avatar{
-  width:120px;height:auto;
-  image-rendering:pixelated;
+/* Minecraft-style 3D avatar */
+#steve-viewer{
+  width:300px;height:400px;
   filter:drop-shadow(0 0 20px var(--grass));
   animation:avatarFloat 3s ease-in-out infinite;
+  image-rendering:pixelated;
 }
 .avatar-platform{
   display:flex;justify-content:center;
